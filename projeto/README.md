@@ -21,19 +21,19 @@
 
 # Mapeamento Entidade e Relacionamento
 
-**Endereco**(@id, rua, bairro, numero, cep, <u>idUsuario</u>)
+**Endereco**(@id, rua, bairro, numero, cep, <span style="text-decoration: underline;">idUsuario</span>)
 
-**Usuario**(@id, nome, email, senha, cpf, rg, cnpj, departamento, tipo, <u>idInstituicao</u>)
+**Usuario**(@id, nome, email, senha, cpf, rg, cnpj, departamento, tipo, <span style="text-decoration: underline;">idInstituicao</span>)
 
-**Transacao**(@id, valor, descricao, <u>idContaOrigem</u>, <u>idContaDestino</u>)
+**Transacao**(@id, valor, descricao, <span style="text-decoration: underline;">idContaOrigem</span>, <span style="text-decoration: underline;">idContaDestino</span>)
 
-**Conta**(@id, saldo, <u>idUsuario</u>)
+**Conta**(@id, saldo, <span style="text-decoration: underline;">idUsuario</span>)
 
-**Vantagem**(@id, produto, valor, descricao, <u>idEmpresa</u>)
+**Vantagem**(@id, produto, valor, descricao, <span style="text-decoration: underline;">idEmpresa</span>)
 
-**Compra**(@id, valorTotal, <u>idAluno</u>)
+**Compra**(@id, valorTotal, <span style="text-decoration: underline;">idAluno</span>)
 
-**ItemCompra**(@id, <u>idCompra</u>, <u>idVantagem</u>)
+**ItemCompra**(@id, <span style="text-decoration: underline;">idCompra</span>, <span style="text-decoration: underline;">idVantagem</span>)
 
 **Instituicao**(@id, nome)
 
