@@ -21,21 +21,27 @@
 
 # Mapeamento Entidade e Relacionamento
 
-**Endereco**(@id, rua, bairro, numero, cep, <span style="text-decoration: underline;">idUsuario</span>)
+Legenda:
+> primaryKey - @
+> foreignKey - **negrito**
 
-**Usuario**(@id, nome, email, senha, cpf, rg, cnpj, departamento, tipo, <span style="text-decoration: underline;">idInstituicao</span>)
 
-**Transacao**(@id, valor, descricao, <span style="text-decoration: underline;">idContaOrigem</span>, <span style="text-decoration: underline;">idContaDestino</span>)
 
-**Conta**(@id, saldo, <span style="text-decoration: underline;">idUsuario</span>)
+**_Endereco_**(@id, rua, bairro, numero, cep, **idUsuario**)
 
-**Vantagem**(@id, produto, valor, descricao, <span style="text-decoration: underline;">idEmpresa</span>)
+**_Usuario_**(@id, nome, email, senha, cpf, rg, cnpj, departamento, tipo, **idInstituicao**)
 
-**Compra**(@id, valorTotal, <span style="text-decoration: underline;">idAluno</span>)
+**_Transacao_**(@id, valor, descricao, **idContaOrigem**, **idContaDestino**)
 
-**ItemCompra**(@id, <span style="text-decoration: underline;">idCompra</span>, <span style="text-decoration: underline;">idVantagem</span>)
+**_Conta_**(@id, saldo, **idUsuario**)
 
-**Instituicao**(@id, nome)
+**_Vantagem_**(@id, produto, valor, descricao, **idEmpresa**)
+
+**_Compra_**(@id, valorTotal, **idAluno**)
+
+**_ItemCompra_**(@id, **idCompra**, **idVantagem**)
+
+**_Instituicao_**(@id, nome)
 
 # Diagrama de Componente
 
