@@ -14,7 +14,7 @@
 	<name>Lab_03_Sistema_Moedas</name>
 	<description>Sistema de moedas estudantil</description>
 	<properties>
-		<java.version>18</java.version>
+		<java.version>17</java.version>
 	</properties>
 	<dependencies>
 		<dependency>

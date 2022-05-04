@@ -10,7 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
-@Entity	
+import com.main.sistema_moedas.model.usuario.Aluno;
+import com.main.sistema_moedas.model.usuario.Professor;
+
+@Entity
 public class Instituicao {
 
 	@Id
@@ -19,9 +22,40 @@ public class Instituicao {
 	@Column(unique = true)
 	private String nome;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private  List<Aluno> aluno;
+	private List<Aluno> alunos;
 	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-	private  List<Professor> professor;
-	
+	private List<Professor> professores;
+
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+
+	public String getNome() {
+		return this.nome;
+	}
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+	public List<Aluno> getAlunos() {
+		return this.alunos;
+	}
+
+	public void setAlunos(List<Aluno> alunos) {
+		this.alunos = alunos;
+	}
+
+	public List<Professor> getProfessores() {
+		return this.professores;
+	}
+
+	public void setProfessores(List<Professor> professores) {
+		this.professores = professores;
+	}
 
 }
