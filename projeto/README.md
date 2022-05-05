@@ -76,3 +76,23 @@ Legenda:
 ## UC07
 
 ![](UC07.png)
+
+## UC08
+
+![](UC08.png)
+
+## Fazer login UC01
+
+![](fazer%20login%20UC01.png)
+
+## Cadastrar Aluno UC03
+
+![](Cadastrar%20Aluno%20UC03.png)
+
+## Deletar Usuario UC09
+
+![](Deletar%20usuario%20UC09.png)
+
+## Atualizar Dados UC08
+
+![](Atualizar%20dados%20UC08.png)
