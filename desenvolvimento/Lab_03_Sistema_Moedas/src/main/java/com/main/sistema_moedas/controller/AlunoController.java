@@ -45,6 +45,16 @@ public class AlunoController {
 		return ("redirect:/aluno/");
 	}
 
+	@GetMapping("/")
+	public ModelAndView homeAluno(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Aluno aluno = (Aluno) auth.getPrincipal();
+		ModelAndView mv = new ModelAndView("aluno/aluno");
+		mv.addObject("aluno", aluno);
+		mv.addObject("conta", aluno.getConta());
+		return mv;
+	}
+
 	@GetMapping("/editar")
 	public ModelAndView editaAluno(){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();

@@ -3,6 +3,7 @@ package com.main.sistema_moedas.controller;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.main.sistema_moedas.model.usuario.Aluno;
 import com.main.sistema_moedas.model.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -40,6 +41,15 @@ public class EmpresaController {
 		emp.setEndereco(e);
 		uRepository.save(emp);
 	   return  ("redirect:/empresa/");
+	}
+
+	@GetMapping("/")
+	public ModelAndView homeEmpresa(){
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Empresa empresa = (Empresa) auth.getPrincipal();
+		ModelAndView mv = new ModelAndView("empresa/empresa");
+		mv.addObject("empresa", empresa);
+		return mv;
 	}
 
 	@GetMapping("/editar")
