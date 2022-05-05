@@ -2,6 +2,8 @@ package com.main.sistema_moedas.model.usuario;
 
 import javax.persistence.Entity;
 
+import com.main.sistema_moedas.model.Conta;
+
 @Entity
 public class Aluno extends Usuario {
 
@@ -9,6 +11,15 @@ public class Aluno extends Usuario {
 
 	private String cpf;
 	private String rg;
+	private Conta conta;
+
+	public Conta getConta() {
+		return conta;
+	}
+
+	public void setConta(Conta conta) {
+		this.conta = conta;
+	}
 
 	public String getCpf() {
 		return cpf;
