@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments::head}">
     <title id="titlePage">Login page</title>
@@ -20,6 +19,9 @@
                 <label for="password" class="form-label">Senha:</label>
             </div>
             <button type="submit" class="col-5 mt-3 btn btn-dark h-100">Logar</button>
+            <div class="row">
+                <p class="text-center">Ainda não cadastrado? <a href="/usuario/new">cadastre-se</a></p>
+            </div>
         </form>
     </section>
 </body>

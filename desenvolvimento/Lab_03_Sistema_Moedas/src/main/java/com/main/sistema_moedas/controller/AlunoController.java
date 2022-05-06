@@ -44,13 +44,13 @@ public class AlunoController {
 		a.setRoles(listaderoles);
 		a.setSenha(encoder.encode(a.getSenha()));
 		a.setEndereco(e);
-//		a.setConta(new Conta());
+		// a.setConta(new Conta());
 		uRepository.save(a);
 		return ("redirect:/aluno/");
 	}
 
-	@GetMapping("/")
-	public ModelAndView homeAluno(){
+	@GetMapping("")
+	public ModelAndView homeAluno() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Aluno aluno = (Aluno) auth.getPrincipal();
 		ModelAndView mv = new ModelAndView("aluno/aluno");
@@ -60,25 +60,35 @@ public class AlunoController {
 	}
 
 	@GetMapping("/editar")
-	public ModelAndView editaAluno(){
+	public ModelAndView editaAluno() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = (Usuario) auth.getPrincipal();
 		ModelAndView mv = new ModelAndView("aluno/editar");
 		mv.addObject("aluno", ((Aluno) user));
+		mv.addObject("end", user.getEndereco());
 		return mv;
 	}
 
-	@PostMapping("/update")
-	public String updateAluno(@Validated Aluno aluno, BindingResult result){
-		if(result.hasErrors()){
+	@PostMapping("/editar")
+	public String updateAluno(@Validated Aluno aluno, Endereco end, BindingResult result) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Aluno user = ((Aluno) auth.getPrincipal());
+		Long id = user.getId();
+		String senha = user.getSenha();
+		List<Role> roles = user.getRoles();
+		if (result.hasErrors()) {
 			return "aluno/editar";
 		}
+		aluno.setId(id);
+		aluno.setSenha(senha);
+		aluno.setEndereco(end);
+		aluno.setRoles(roles);
 		uRepository.save(aluno);
-		return "redirect:/";
+		return "redirect:/login";
 	}
 
 	@GetMapping("/deletar")
-	public String deletarUsuario(){
+	public String deletarUsuario() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = (Usuario) auth.getPrincipal();
 		uRepository.delete(user);
