@@ -91,7 +91,7 @@ public class EmpresaController {
 		Usuario user = (Usuario) auth.getPrincipal();
 		uRepository.delete(user);
 		auth.setAuthenticated(false);
-		return "redirect:/index";
+		return "redirect:/logout";
 	}
 
 }
