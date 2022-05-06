@@ -1,5 +1,5 @@
-<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml-strict-thymeleaf-spring4-4.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:fragment="head">
@@ -13,16 +13,64 @@
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
 	<title th:include="::#titlePage"></title>
-	<link rel="stylesheet" href="./style/style.css">
-	<link rel="stylesheet" href="../style/style.css">
 	<script th:include="::#personalScript"></script>
+	<style type="text/css">
+			.form {
+			    max-width: 900px;
+			    min-height: 500px;
+			    padding: 12.5px;
+			    border-radius: 20px;
+			    border: #212529 1.5px solid;
+			    box-shadow: black 2px 2px;
+			}
+		
+		.form-control {
+		    border: none;
+		    border-bottom: 2px #212529 solid;
+		    border-radius: 0;
+		}
+		
+		.form-control:focus {
+		    outline: none !important;
+		    box-shadow: none !important;
+		    border-bottom: 3px #212529 solid;
+		    height: calc(3.5rem + 4px)
+		}
+		
+		.form-login {
+		    max-width: 450px;
+		}
+		
+		input[type='radio'].form-check-input:checked {
+		    outline: #212529 !important;
+		    box-shadow: none !important;
+		    border: #212529 !important;
+		    background: #212529 !important;
+		    color: #212529 !important;
+		}
+		
+		header {
+			min-height: 50px;
+			background: #212529;
+			padding: 15px;
+		}
+		
+		header a{
+			color: white !important;
+		}
+		
+		header a i:hover {
+			font-size: 2.5rem;
+		}
+		
+	</style>
 </head>
 
 <body>
 
 	<header th:fragment="header" class="container-fluid">
-		<div class="row">
-			<i class="fa-solid fa-house fa-2x"></i>
+		<div class="row align-items-center" >
+			<a href="/"><i class="fa-solid fa-house fa-2x"></i></a>
 		</div>
 	</header>
 

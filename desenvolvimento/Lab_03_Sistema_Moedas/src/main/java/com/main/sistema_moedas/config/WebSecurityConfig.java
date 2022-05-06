@@ -33,14 +33,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 		.authorizeRequests().antMatchers("/").permitAll()
-		.and().authorizeRequests().antMatchers(HttpMethod.GET,"/usuario/new").permitAll()
-		.and().authorizeRequests().antMatchers(HttpMethod.POST,"/aluno/new").permitAll()
-		.and().authorizeRequests().antMatchers(HttpMethod.POST,"/empresa/new").permitAll()
-		.and().authorizeRequests().antMatchers("/usuario").hasRole("ADMIN")
-		.and().authorizeRequests().antMatchers("/aluno").hasRole("ALUNO")
-		.and().authorizeRequests().antMatchers("/empresa").hasRole("EMPRESA").anyRequest().authenticated()
-		.and().formLogin().loginPage("/logar").permitAll()
-		.and().logout().logoutSuccessUrl("/logout").logoutRequestMatcher(new AntPathRequestMatcher("/"));
+		.antMatchers(HttpMethod.GET,"/usuario/new").permitAll()
+		.antMatchers(HttpMethod.POST,"/aluno/new").permitAll()
+		.antMatchers(HttpMethod.POST,"/empresa/new").permitAll()
+		.antMatchers("/usuario").hasRole("ADMIN")
+		.antMatchers("/aluno").hasRole("ALUNO")
+		.antMatchers("/empresa").hasRole("EMPRESA")
+		.anyRequest().authenticated()
+		.and().formLogin().loginPage("/login").permitAll()
+		.and().logout().logoutSuccessUrl("/").logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 
 }

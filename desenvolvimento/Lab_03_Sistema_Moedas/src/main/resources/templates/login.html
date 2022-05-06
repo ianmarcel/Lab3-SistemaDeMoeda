@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+<html xmlns:th="http://www.thymeleaf.org"
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments::head}">
@@ -9,7 +9,7 @@
 
 <body>
     <section class="container">
-        <form action="/login" method="post" class="row form-login mt-5 mx-auto justify-content-center">
+        <form action="/login" method="post" class="row form form-login mt-5 mx-auto justify-content-center">
             <h1 class="col-12 text-center mt-5 px-2">Fazer Login</h1>
             <div class="col-10 form-floating mt-3">
                 <input type="email" name="username" id="username" class="form-control" placeholder="none">
