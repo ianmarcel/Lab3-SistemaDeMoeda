@@ -7,6 +7,7 @@ import com.main.sistema_moedas.model.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
@@ -31,6 +32,8 @@ public class AlunoController {
 	@Autowired
 	private UsuarioRepository uRepository;
 
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+
 	@PostMapping("/new")
 	public String novo(Aluno a, Endereco e) {
 		Role admin = rRepository.findByNameRole("ROLE_ADMIN").orElse(new Role("ROLE_ADMIN"));
@@ -39,8 +42,9 @@ public class AlunoController {
 		listaderoles.add(admin);
 		listaderoles.add(aluno);
 		a.setRoles(listaderoles);
+		a.setSenha(encoder.encode(a.getSenha()));
 		a.setEndereco(e);
-		a.setConta(new Conta());
+//		a.setConta(new Conta());
 		uRepository.save(a);
 		return ("redirect:/aluno/");
 	}

@@ -5,13 +5,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class IndexController {
-    @GetMapping("/cadastrarusuario")
-    
-    public String formularioCadastro() {
-    	return "formulario";
-    }
     @GetMapping("/logar")
     public String Login() {
-    	return "formularioLogin";
+    	return "login";
     }
 }

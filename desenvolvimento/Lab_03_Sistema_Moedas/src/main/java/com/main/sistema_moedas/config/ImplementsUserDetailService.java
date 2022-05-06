@@ -14,8 +14,8 @@ import com.main.sistema_moedas.model.usuario.Usuario;
 import com.main.sistema_moedas.repository.UsuarioRepository;
 
 /*Descomentar as linhas abaixo para habilitar*/
-//@Repository
-//@Transactional
+@Repository
+@Transactional
 public class ImplementsUserDetailService implements UserDetailsService {
 	
 	@Autowired

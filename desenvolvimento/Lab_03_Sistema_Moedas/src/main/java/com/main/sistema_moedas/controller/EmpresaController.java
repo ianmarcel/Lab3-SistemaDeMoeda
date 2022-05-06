@@ -3,23 +3,24 @@ package com.main.sistema_moedas.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.main.sistema_moedas.model.usuario.Aluno;
-import com.main.sistema_moedas.model.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.main.sistema_moedas.model.Endereco;
 import com.main.sistema_moedas.model.usuario.Empresa;
 import com.main.sistema_moedas.model.usuario.Role;
+import com.main.sistema_moedas.model.usuario.Usuario;
 import com.main.sistema_moedas.repository.RoleRepository;
 import com.main.sistema_moedas.repository.UsuarioRepository;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/empresa")
@@ -29,6 +30,9 @@ public class EmpresaController {
 	private RoleRepository rRepository;
 	@Autowired
 	private UsuarioRepository uRepository;
+	
+	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
 	@PostMapping("/new")
 	public String novo(Empresa emp ,Endereco e) {
 		
@@ -37,6 +41,7 @@ public class EmpresaController {
 		List<Role> listaderoles = new ArrayList<>();
 		listaderoles.add(admin);
 		listaderoles.add(empresa);
+		emp.setSenha(encoder.encode(emp.getSenha()));
 		emp.setRoles(listaderoles);
 		emp.setEndereco(e);
 		uRepository.save(emp);
