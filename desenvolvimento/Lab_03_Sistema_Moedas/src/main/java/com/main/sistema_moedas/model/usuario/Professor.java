@@ -2,6 +2,9 @@ package com.main.sistema_moedas.model.usuario;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+
+import com.main.sistema_moedas.model.Instituicao;
 
 @Entity
 public class Professor extends Usuario {
@@ -11,6 +14,14 @@ public class Professor extends Usuario {
 	@Column(unique = true)
 	private String cpf;
 	private String departamento;
+	@ManyToOne(targetEntity = Instituicao.class)
+	private Instituicao instituicao;
+
+	
+	public Professor() {
+	}
+
+
 
 	public String getCpf() {
 		return cpf;
@@ -27,5 +38,16 @@ public class Professor extends Usuario {
 	public void setDepartamento(String departamento) {
 		this.departamento = departamento;
 	}
+
+	public Instituicao getInstituicao() {
+		return this.instituicao;
+	}
+
+	public void setInstituicao(Instituicao instituicao) {
+		this.instituicao = instituicao;
+//		instituicao.addProfessor(this);
+	}
+	
+	
 
 }

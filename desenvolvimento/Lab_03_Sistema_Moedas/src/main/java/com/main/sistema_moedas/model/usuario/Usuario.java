@@ -33,9 +33,12 @@ public abstract class Usuario implements UserDetails, Serializable {
 	private String email;
 	@OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, targetEntity = Endereco.class)
 	private Endereco endereco;
-	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+	@ManyToMany(fetch = FetchType.EAGER,cascade = CascadeType.REFRESH)
 	private List<Role> roles;
 	
+	public Usuario() {
+	}
+
 
 	public boolean fazerLogin(String senha) {
 		return this.senha.equals(senha);
