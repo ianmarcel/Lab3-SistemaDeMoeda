@@ -1,6 +1,8 @@
 package com.main.sistema_moedas.exception;
 
-public class UsuarioNaoEncontradoException extends RuntimeException {
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+
+public class UsuarioNaoEncontradoException extends UsernameNotFoundException {
 
 	private static final long serialVersionUID = 1L;
 	private static final String MESSAGE_STRING = "Usuário não encontrado";
@@ -8,9 +10,5 @@ public class UsuarioNaoEncontradoException extends RuntimeException {
 	public UsuarioNaoEncontradoException() {
 		super(MESSAGE_STRING);
 	}
-
-	
-	
-	
 
 }

@@ -8,6 +8,13 @@
 
 <body>
     <section class="container">
+
+        <div th:if="${param.cadastrado}" class="row message-sucess mt-5 mx-auto align-items-center">
+            <h4 class="col-12 text-center">Cadastrado com sucesso!</h4>
+        </div>
+        <div th:if="${param.error}" class="row message-error mt-5 mx-auto align-items-center">
+            <h4 class="col-12 text-center">Usuario ou senha incorretos</h4>
+        </div>
         <form action="/login" method="post" class="row form form-login mt-5 mx-auto justify-content-center">
             <h1 class="col-12 text-center mt-5 px-2">Fazer Login</h1>
             <div class="col-10 form-floating mt-3">

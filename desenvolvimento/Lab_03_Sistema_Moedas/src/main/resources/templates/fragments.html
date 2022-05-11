@@ -8,6 +8,8 @@
 		integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
 		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+	<script type="text/javascript"
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
 		integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
 		crossorigin="anonymous" referrerpolicy="no-referrer" />
@@ -23,13 +25,29 @@
 			box-shadow: black 2px 2px;
 		}
 
-		.form-control {
+		.form-control,
+		.form-select {
 			border: none;
 			border-bottom: 2px #212529 solid;
 			border-radius: 0;
 		}
 
-		.form-control:focus {
+		.form-invalid {
+			border-bottom: 3px #f00 solid !important;
+		}
+
+		.form-control:read-only,
+		.form-control:disabled {
+			background: none;
+			border-bottom: 2px #474747 solid;
+		}
+
+		.read-only {
+			color: #474747 !important;
+		}
+
+		.form-control:focus,
+		.form-select:focus {
 			outline: none !important;
 			box-shadow: none !important;
 			border-bottom: 3px #212529 solid;
@@ -38,6 +56,30 @@
 
 		.form-login {
 			max-width: 450px;
+		}
+
+		.error {
+			color: #f00;
+		}
+
+		.message-sucess {
+			max-width: 450px;
+			background: rgba(0, 255, 0, 0.247);
+			min-height: 75px;
+			border-radius: 20px;
+			border: green 1.5px solid;
+			box-shadow: green 2px 2px;
+			color: green;
+		}
+
+		.message-error {
+			max-width: 450px;
+			background: rgba(255, 0, 0, 0.247);
+			min-height: 75px;
+			border-radius: 20px;
+			border: red 1.5px solid;
+			box-shadow: red 2px 2px;
+			color: red;
 		}
 
 		input[type='radio'].form-check-input:checked {

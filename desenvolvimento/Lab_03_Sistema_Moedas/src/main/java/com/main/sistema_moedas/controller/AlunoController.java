@@ -3,7 +3,6 @@ package com.main.sistema_moedas.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.main.sistema_moedas.model.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -14,14 +13,17 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.main.sistema_moedas.model.Conta;
 import com.main.sistema_moedas.model.Endereco;
+import com.main.sistema_moedas.model.Instituicao;
 import com.main.sistema_moedas.model.usuario.Aluno;
 import com.main.sistema_moedas.model.usuario.Role;
+import com.main.sistema_moedas.model.usuario.Usuario;
+import com.main.sistema_moedas.repository.InstituicaoRepository;
 import com.main.sistema_moedas.repository.RoleRepository;
 import com.main.sistema_moedas.repository.UsuarioRepository;
-import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/aluno")
@@ -31,22 +33,26 @@ public class AlunoController {
 	private RoleRepository rRepository;
 	@Autowired
 	private UsuarioRepository uRepository;
+	@Autowired
+	private InstituicaoRepository iRepository;
 
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
 	@PostMapping("/new")
-	public String novo(Aluno a, Endereco e) {
+	public String novo(Aluno a, Endereco e, Long idInstituicao) {
 		Role admin = rRepository.findByNameRole("ROLE_ADMIN").orElse(new Role("ROLE_ADMIN"));
 		Role aluno = rRepository.findByNameRole("ROLE_ALUNO").orElse(new Role("ROLE_ALUNO"));
 		List<Role> listaderoles = new ArrayList<>();
+		Instituicao inst = iRepository.findById(idInstituicao).get();
 		listaderoles.add(admin);
 		listaderoles.add(aluno);
 		a.setRoles(listaderoles);
 		a.setSenha(encoder.encode(a.getSenha()));
 		a.setEndereco(e);
-		// a.setConta(new Conta());
+		a.setInstituicao(inst);
+		a.setConta(new Conta());
 		uRepository.save(a);
-		return ("redirect:/aluno/");
+		return ("redirect:/login?cadastrado");
 	}
 
 	@GetMapping("")

@@ -33,15 +33,16 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable()
 				.authorizeRequests().antMatchers("/").permitAll()
+				.antMatchers("/login").permitAll()
 				.antMatchers(HttpMethod.GET, "/usuario/new").permitAll()
-				.antMatchers(HttpMethod.POST, "/aluno/new").permitAll()
-				.antMatchers(HttpMethod.POST, "/empresa/new").permitAll()
+				.antMatchers("/aluno/new").permitAll()
+				.antMatchers("/empresa/new").permitAll()
 				.antMatchers("/usuario").hasRole("ADMIN")
 				.antMatchers("/aluno/").hasRole("ALUNO")
 				.antMatchers("/empresa/").hasRole("EMPRESA")
 				.anyRequest().authenticated()
 				.and().formLogin().loginPage("/login").permitAll()
-				.and().logout().logoutSuccessUrl("/").logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
+				.and().logout().logoutRequestMatcher(new AntPathRequestMatcher("/logout"));
 	}
 
 }
