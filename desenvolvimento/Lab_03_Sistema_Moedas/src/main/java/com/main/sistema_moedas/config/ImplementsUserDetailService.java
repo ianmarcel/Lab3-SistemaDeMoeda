@@ -17,15 +17,15 @@ import com.main.sistema_moedas.repository.UsuarioRepository;
 @Repository
 @Transactional
 public class ImplementsUserDetailService implements UserDetailsService {
-	
+
 	@Autowired
 	UsuarioRepository uRepository;
 
 	@Override
 	public Usuario loadUserByUsername(String email) throws UsernameNotFoundException {
-		
+
 		Optional<Usuario> user = uRepository.findByEmail(email);
-				
+
 		return user.orElseThrow(UsuarioNaoEncontradoException::new);
 	}
 

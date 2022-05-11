@@ -45,7 +45,7 @@ public class EmpresaController {
 		emp.setRoles(listaderoles);
 		emp.setEndereco(e);
 		uRepository.save(emp);
-		return ("redirect:/empresa/");
+		return ("redirect:/login?cadastrado");
 	}
 
 	@GetMapping("")
