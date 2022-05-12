@@ -9,6 +9,6 @@ import java.util.List;
 
 @Repository
 public interface TransacaoRepository extends JpaRepository<Transacao, Long> {
-    public List<Transacao> findByOrigem(Conta conta);
-    public List<Transacao> findByDestino(Conta conta);
+    public List<Transacao> findByContaOrigem(Conta conta);
+    public List<Transacao> findByContaDestino(Conta conta);
 }

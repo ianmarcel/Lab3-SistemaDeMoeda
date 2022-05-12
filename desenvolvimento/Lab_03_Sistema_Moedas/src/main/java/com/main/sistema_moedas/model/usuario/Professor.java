@@ -1,5 +1,6 @@
 package com.main.sistema_moedas.model.usuario;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -18,7 +19,7 @@ public class Professor extends Usuario {
 	private String departamento;
 	@ManyToOne(targetEntity = Instituicao.class)
 	private Instituicao instituicao;
-	@OneToOne
+	@OneToOne(cascade = CascadeType.ALL)
 	private Conta conta;
 
 
