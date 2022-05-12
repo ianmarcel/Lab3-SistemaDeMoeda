@@ -1,11 +1,15 @@
 package com.main.sistema_moedas.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.crypto.Data;
 
 @Entity
@@ -21,13 +25,14 @@ public class Transacao {
 	private Conta origem;
 	@OneToMany()	
 	private Conta destino;
-	private Data data;
+	@Temporal(TemporalType.DATE)
+	private LocalDateTime data;
 	
 	
-	public Data getData() {
+	public LocalDateTime getData() {
 		return data;
 	}
-	public void setData(Data data) {
+	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
 	public long getId() {
