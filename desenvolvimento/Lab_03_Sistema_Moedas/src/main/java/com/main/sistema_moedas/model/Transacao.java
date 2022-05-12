@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.xml.crypto.Data;
 
 @Entity
 public class Transacao {
@@ -18,10 +19,17 @@ public class Transacao {
 	private String descricao;
 	@OneToMany()
 	private Conta origem;
-	@OneToMany()
+	@OneToMany()	
 	private Conta destino;
+	private Data data;
 	
 	
+	public Data getData() {
+		return data;
+	}
+	public void setData(Data data) {
+		this.data = data;
+	}
 	public long getId() {
 		return id;
 	}
