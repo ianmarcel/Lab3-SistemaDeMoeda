@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Transacao {
@@ -15,9 +16,9 @@ public class Transacao {
 	
 	private int valor;
 	private String descricao;
-	@Column(unique = true)
+	@OneToMany()
 	private Conta origem;
-	@Column(unique = true)
+	@OneToMany()
 	private Conta destino;
 	
 	
