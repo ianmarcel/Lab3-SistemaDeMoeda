@@ -51,13 +51,6 @@ public class Transacao {
 	public void setDestino(Conta destino) {
 		this.destino = destino;
 	}
-	private Transacao(int valor, String descricao, Conta origem, Conta destino) {
-		
-		this.setValor(valor);
-		this.setDescricao(descricao);
-		this.setOrigem(origem);
-		this.setDestino(destino);
-	}
 	
 	
 	
