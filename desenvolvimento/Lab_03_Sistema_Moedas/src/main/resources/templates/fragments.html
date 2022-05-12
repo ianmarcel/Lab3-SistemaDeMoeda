@@ -117,6 +117,8 @@
 			<a class="col-1" sec:authorize="isAuthenticated()" href="/logout">Sair</a>
 			<a class="col-1" sec:authorize="hasRole('EMPRESA')" href="/empresa">Perfil</a>
 			<a class="col-1" sec:authorize="hasRole('ALUNO')" href="/aluno">Perfil</a>
+			<a class="col-1" sec:authorize="hasRole('PROFESSOR')" href="/professor">Perfil</a>
+			<a class="col-1" sec:authorize="hasAnyRole('ALUNO','PROFESSOR')" href="/conta">Conta</a>
 		</div>
 	</header>
 
