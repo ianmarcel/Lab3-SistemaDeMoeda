@@ -2,79 +2,83 @@ package com.main.sistema_moedas.model;
 
 import java.time.LocalDateTime;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-import javax.xml.crypto.Data;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Transacao {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
-	
+
 	private int valor;
 	private String descricao;
-	@OneToMany()
-	private Conta origem;
-	@OneToMany()	
-	private Conta destino;
-	@Temporal(TemporalType.DATE)
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	private Conta contaOrigem;
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	private Conta contaDestino;
+	@Column(columnDefinition = "DATE")
 	private LocalDateTime data;
-	
-	
+
 	public LocalDateTime getData() {
 		return data;
 	}
+
 	public void setData(LocalDateTime data) {
 		this.data = data;
 	}
+
 	public long getId() {
 		return id;
 	}
+
 	public void setId(long id) {
 		this.id = id;
 	}
+
 	public int getValor() {
 		return valor;
 	}
+
 	public void setValor(int valor) {
 		this.valor = valor;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	public Conta getOrigem() {
-		return origem;
+
+	public Conta getContaOrigem() {
+		return contaOrigem;
 	}
-	public void setOrigem(Conta origem) {
-		this.origem = origem;
+
+	public void setContaOrigem(Conta origem) {
+		this.contaOrigem = origem;
 	}
-	public Conta getDestino() {
-		return destino;
+
+	public Conta getContaDestino() {
+		return contaDestino;
 	}
-	public void setDestino(Conta destino) {
-		this.destino = destino;
+
+	public void setContaDestino(Conta destino) {
+		this.contaDestino = destino;
 	}
-	private Transacao(int valor, String descricao, Conta origem, Conta destino) {
-		
-		this.setValor(valor);
-		this.setDescricao(descricao);
-		this.setOrigem(origem);
-		this.setDestino(destino);
+
+	@Override
+	public String toString() {
+		return "Transacao [id=" + this.id + ", valor=" + this.valor + ", descricao=" + this.descricao + ", contaOrigem="
+				+ this.contaOrigem.getId() + ", contaDestino=" + this.contaDestino.getId() + ", data=" + this.data.toString() + "]";
 	}
-	
-	
-	
 	
 	
 

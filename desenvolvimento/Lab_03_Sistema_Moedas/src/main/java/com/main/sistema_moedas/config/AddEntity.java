@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -29,7 +28,7 @@ public class AddEntity {
 
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-	 @Bean
+//	 @Bean
 	public void addInstituicao() {
 		List<Instituicao> i = new ArrayList<>();
 		i.add(new Instituicao("Puc Minas"));
@@ -39,7 +38,7 @@ public class AddEntity {
 		iRepository.saveAll(i);
 	}
 
-	 @Bean
+//	 @Bean
 	public void addRoles() {
 		Role admin = rRepository.findByNameRole("ROLE_ADMIN").orElse(new Role("ROLE_ADMIN"));
 		Role prof = rRepository.findByNameRole("ROLE_PROFESSOR").orElse(new Role("ROLE_PROFESSOR"));
@@ -53,7 +52,7 @@ public class AddEntity {
 		rRepository.saveAll(roles);
 	}
 
-	 @Bean
+//	 @Bean
 	public void addProfessores() {
 		Role admin = rRepository.findByNameRole("ROLE_ADMIN").orElse(new Role("ROLE_ADMIN"));
 		Role prof = rRepository.findByNameRole("ROLE_PROFESSOR").orElse(new Role("ROLE_PROFESSOR"));
@@ -78,7 +77,9 @@ public class AddEntity {
 		p1.setSenha(encoder.encode("1234"));
 		p1.setEndereco(e);
 		p1.setRoles(roles);
-		p1.setConta(new Conta());
+		Conta c = new Conta();
+		c.setSaldo(1000);
+		p1.setConta(c);
 
 
 		uRepository.save(p1);

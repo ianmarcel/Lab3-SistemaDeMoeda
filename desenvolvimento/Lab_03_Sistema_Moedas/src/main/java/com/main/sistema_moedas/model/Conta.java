@@ -17,6 +17,16 @@ public class Conta {
 		return null;
 	}
 
+	public void adicionar(int qtd){
+		this.saldo += qtd;
+	}
+
+	public boolean retirar(int qtd){
+		if(this.saldo < qtd) return false;
+		this.saldo -= qtd;
+		return true;
+	}
+
 	public int getSaldo() {
 		return this.saldo;
 	}

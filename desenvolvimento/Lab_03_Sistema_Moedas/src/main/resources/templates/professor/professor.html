@@ -12,9 +12,8 @@
     <header th:replace="~{fragments::header}"></header>
     <section class="container">
         <div class="row justify-content-between">
-            <h1 th:text="${aluno.nome}" class="col-12">Nome do aluno</h1>
+            <h1 th:text="${professor.nome}" class="col-12">Nome do professor</h1>
             <p th:text="${conta.saldo}" class="col-2">Saldo</p>
-            <a href="/aluno/editar" class="col-2 btn btn-dark">Editar</a>
             <a href="/usuario/deletar" class="col-2 btn btn-dark">Deletar</a>
         </div>
     </section>

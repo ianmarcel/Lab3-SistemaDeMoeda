@@ -92,13 +92,4 @@ public class AlunoController {
 		uRepository.save(aluno);
 		return "redirect:/login";
 	}
-
-	@GetMapping("/deletar")
-	public String deletarUsuario() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario user = (Usuario) auth.getPrincipal();
-		uRepository.delete(user);
-		auth.setAuthenticated(false);
-		return "redirect:/logout";
-	}
 }
