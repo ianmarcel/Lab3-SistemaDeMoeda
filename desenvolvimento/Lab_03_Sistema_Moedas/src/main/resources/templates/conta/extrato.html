@@ -15,21 +15,20 @@
             <table class="table col-12">
             	<thead>
             		<tr>
-<!--             			<td scope="col">Tipo</td> -->
+             			<td scope="col">Tipo</td>
             			<td scope="col">Data</td>
-            			<td scope="col">Destino</td>
+            			<td scope="col" th:text="${isAluno} ? 'Origem' : 'Destino'"></td>
             			<td scope="col">Valor</td>
             			<td scope="col">Descrição</td>
             		</tr>
             	</thead>
                 <tbody>
                     <tr th:each="e : ${extrato}">
-<!--                         <th scope="row" th:if="">Débito</th> -->
+                       <th scope="row" th:text="${isAluno} ? 'Recebimento' : 'Envio'"></th>
                         <th th:text="${e.data.toString()}" scope="row"></th>
-                    	<td th:text="${e.contaDestino.id}"></td>
+                    	<td th:text="${isAluno} ? ${ur.findProfessorByConta(e.contaOrigem.id).get()} : ${ur.findAlunoByConta(e.contaDestino.id).get()}"></td>
                     	<td th:text="${e.valor}"></td>
                     	<td th:text="${e.descricao}"></td>
-						
                     </tr>
                 </tbody>
             </table>

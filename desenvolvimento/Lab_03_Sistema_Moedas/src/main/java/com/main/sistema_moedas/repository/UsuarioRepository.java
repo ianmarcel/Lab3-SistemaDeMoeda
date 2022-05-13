@@ -3,6 +3,7 @@ package com.main.sistema_moedas.repository;
 import java.util.List;
 import java.util.Optional;
 
+import com.main.sistema_moedas.model.Conta;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -22,6 +23,9 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
 	List<Professor> findAllProfessores();
 	@Query(value = "SELECT * FROM usuario u WHERE u.dtype = Empresa", nativeQuery = true)
 	List<Empresa> findAllEmpresas();
+
+	Optional<Professor> findProfessorByConta(Conta conta);
+	Optional<Aluno> findAlunoByConta(Conta conta);
 	
 	List<Aluno> findByInstituicao(Instituicao i);
 	

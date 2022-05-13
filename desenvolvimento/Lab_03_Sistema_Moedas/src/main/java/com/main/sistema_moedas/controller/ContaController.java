@@ -54,8 +54,7 @@ public class ContaController {
         Professor p = (Professor) auth.getPrincipal();
         Conta contaP = p.getConta();
         Conta contaA = ((Aluno) uRepository.findById(alunoId).get()).getConta();
-        // if(!(a.getInstituicao().equals(p.getInstituicao()))) return "";
-
+        if(qtdMoedas<0) return "";
         if (!contaP.retirar(qtdMoedas))
             return "";
         contaA.adicionar(qtdMoedas);
@@ -78,12 +77,19 @@ public class ContaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario user = (Usuario) auth.getPrincipal();
         List<Transacao> listaT;
-        if (user instanceof Professor)
+        boolean isAluno;
+        if (user instanceof Professor){
             listaT = tRepository.findByContaOrigem(((Professor) user).getConta());
-        else
+            isAluno = false;
+        }
+        else{
             listaT = tRepository.findByContaDestino(((Aluno) user).getConta());
+            isAluno = true;
+        }
         ModelAndView mv = new ModelAndView("conta/extrato");
         mv.addObject("extrato", listaT);
+        mv.addObject("isAluno", isAluno);
+        mv.addObject("ur", uRepository);
         return mv;
     }
 

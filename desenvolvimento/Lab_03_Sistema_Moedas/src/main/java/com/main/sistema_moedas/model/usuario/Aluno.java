@@ -54,4 +54,8 @@ public class Aluno extends Usuario {
 //		instituicao.addAluno(this);
 	}
 
+	public String toString(){
+		return getNome();
+	}
+
 }

@@ -55,6 +55,10 @@ public class Professor extends Usuario {
 		this.instituicao = instituicao;
 //		instituicao.addProfessor(this);
 	}
+
+	public String toString(){
+		return getNome();
+	}
 	
 	
 

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
@@ -28,7 +29,7 @@ public class AddEntity {
 
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-//	 @Bean
+	//@Bean
 	public void addInstituicao() {
 		List<Instituicao> i = new ArrayList<>();
 		i.add(new Instituicao("Puc Minas"));
@@ -38,7 +39,7 @@ public class AddEntity {
 		iRepository.saveAll(i);
 	}
 
-//	 @Bean
+	//@Bean
 	public void addRoles() {
 		Role admin = rRepository.findByNameRole("ROLE_ADMIN").orElse(new Role("ROLE_ADMIN"));
 		Role prof = rRepository.findByNameRole("ROLE_PROFESSOR").orElse(new Role("ROLE_PROFESSOR"));
@@ -52,7 +53,7 @@ public class AddEntity {
 		rRepository.saveAll(roles);
 	}
 
-//	 @Bean
+	//@Bean
 	public void addProfessores() {
 		Role admin = rRepository.findByNameRole("ROLE_ADMIN").orElse(new Role("ROLE_ADMIN"));
 		Role prof = rRepository.findByNameRole("ROLE_PROFESSOR").orElse(new Role("ROLE_PROFESSOR"));
@@ -69,16 +70,16 @@ public class AddEntity {
 		e.setRua("RUA");
 
 		Professor p1 = new Professor();
-		p1.setCpf("cpfUnico");
-		p1.setDepartamento("Letas");
-		p1.setEmail("p1@test.com");
+		p1.setCpf("cpfUnico1");
+		p1.setDepartamento("Letras");
+		p1.setEmail("p2@test.com");
 		p1.setInstituicao(i);
-		p1.setNome("P1");
+		p1.setNome("P2");
 		p1.setSenha(encoder.encode("1234"));
 		p1.setEndereco(e);
 		p1.setRoles(roles);
 		Conta c = new Conta();
-		c.setSaldo(1000);
+		c.setSaldo(2000);
 		p1.setConta(c);
 
 
