@@ -10,12 +10,17 @@
 
 <body>
     <header th:replace="~{fragments::header}"></header>
-    <section class="container">
+    <section class="container form my-5 mx-auto">
         <div class="row justify-content-between">
-            <h1 class="col-12">Sua conta</h1>
-            <!--             <p th:text="${conta.saldo}" class="col-2">Saldo</p> -->
-            <a href="/conta/extrato" class="col-2 btn btn-dark">Extrato</a>
-            <a sec:authorize="hasRole('PROFESSOR')" href="/conta/transferir" class="col-2 btn btn-dark">Transferir</a>
+            <h1 class="col-12 text-center mt-5 px-2">Sua conta</h1>
+            <div class="row"><p th:text="'Saldo: ' + ${conta.getSaldo()}" class="col-2 sub-info">Saldo</p><div class="col"></div></div>
+            <div class="row" style="margin-top: 50px;">
+                <div class="col-1"></div>
+                <a href="/conta/extrato" class="col-2 btn btn-dark">Extrato</a>
+                <div class="col"></div>
+                <a sec:authorize="hasRole('PROFESSOR')" href="/conta/transferir" class="col-2 btn btn-dark">Transferir</a>
+                <div class="col-1"></div>
+            </div>
         </div>
     </section>
 

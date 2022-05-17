@@ -72,6 +72,7 @@ public class AlunoController {
 		ModelAndView mv = new ModelAndView("aluno/editar");
 		mv.addObject("aluno", ((Aluno) user));
 		mv.addObject("end", user.getEndereco());
+		mv.addObject("conta", ((Aluno) user).getConta());
 		return mv;
 	}
 

@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -35,8 +34,17 @@ public class ContaController {
 
 
     @GetMapping("")
-    public String conta() {
-        return "conta/conta";
+    public ModelAndView conta() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        Usuario user = (Usuario) auth.getPrincipal();
+        ModelAndView mv = new ModelAndView("conta/conta");
+        if (user instanceof Professor){
+            mv.addObject("conta", ((Professor) user).getConta());
+        }
+        else{
+            mv.addObject("conta", ((Aluno) user).getConta());
+        }
+        return mv;
     }
 
     @GetMapping("/transferir")
@@ -46,22 +54,9 @@ public class ContaController {
         List<Aluno> alunos = uRepository.findByInstituicao(p.getInstituicao());
         ModelAndView mv = new ModelAndView("conta/transferir");
         mv.addObject("alunos", alunos);
+        mv.addObject("conta", p.getConta());
         return mv;
     }
-
-    /*@GetMapping("/transferir/erro/0")
-    public ModelAndView transferirErro(){
-        ModelAndView mv = transferirTela();
-        mv.addObject("erro", 0);
-        return mv;
-    }
-
-    @GetMapping("/transferir/erro/1")
-    public ModelAndView transferirErroSaldo(){
-        ModelAndView mv = transferirTela();
-        mv.addObject("erro", 1);
-        return mv;
-    }*/
 
     @PostMapping("/transferencia")
     public ModelAndView transferencia(Long alunoId, int qtdMoedas, String descricao) {
@@ -95,16 +90,18 @@ public class ContaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Usuario user = (Usuario) auth.getPrincipal();
         List<Transacao> listaT;
+        ModelAndView mv = new ModelAndView("conta/extrato");
         boolean isAluno;
         if (user instanceof Professor){
             listaT = tRepository.findByContaOrigem(((Professor) user).getConta());
+            mv.addObject("conta", ((Professor) user).getConta());
             isAluno = false;
         }
         else{
             listaT = tRepository.findByContaDestino(((Aluno) user).getConta());
+            mv.addObject("conta", ((Aluno) user).getConta());
             isAluno = true;
         }
-        ModelAndView mv = new ModelAndView("conta/extrato");
         mv.addObject("extrato", listaT);
         mv.addObject("isAluno", isAluno);
         mv.addObject("ur", uRepository);
