@@ -1,6 +1,7 @@
 package com.main.sistema_moedas.controller;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,10 +33,18 @@ public class ContaController {
     @Autowired
     private ContaRepository cRepository;
 
+    private boolean isAluno;
+    private List<Transacao> listaT;
+    private Usuario user;
 
     @GetMapping("")
-    public String conta() {
-        return "conta/conta";
+    public ModelAndView conta() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        ModelAndView mv = new ModelAndView("conta/conta");
+        validate(auth);
+        mv.addObject("isAluno", isAluno);
+        mv.addObject("conta", isAluno ? ((Aluno) user).getConta() : ((Professor) user).getConta());
+        return mv;
     }
 
     @GetMapping("/transferir")
@@ -54,7 +63,8 @@ public class ContaController {
         Professor p = (Professor) auth.getPrincipal();
         Conta contaP = p.getConta();
         Conta contaA = ((Aluno) uRepository.findById(alunoId).get()).getConta();
-        if(qtdMoedas<0) return "";
+        if (qtdMoedas < 0)
+            return "";
         if (!contaP.retirar(qtdMoedas))
             return "";
         contaA.adicionar(qtdMoedas);
@@ -75,22 +85,27 @@ public class ContaController {
     @GetMapping("/extrato")
     public ModelAndView consultaExtrato() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        Usuario user = (Usuario) auth.getPrincipal();
-        List<Transacao> listaT;
-        boolean isAluno;
-        if (user instanceof Professor){
-            listaT = tRepository.findByContaOrigem(((Professor) user).getConta());
-            isAluno = false;
-        }
-        else{
-            listaT = tRepository.findByContaDestino(((Aluno) user).getConta());
-            isAluno = true;
-        }
+        validate(auth);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd LLLL u, HH:mm:ss");
         ModelAndView mv = new ModelAndView("conta/extrato");
         mv.addObject("extrato", listaT);
         mv.addObject("isAluno", isAluno);
         mv.addObject("ur", uRepository);
+        mv.addObject("formatter", formatter);
+        mv.addObject("now", LocalDateTime.now());
+        mv.addObject("conta", isAluno ? ((Aluno) user).getConta() : ((Professor) user).getConta());
         return mv;
+    }
+
+    public void validate(Authentication auth) {
+        user = (Usuario) auth.getPrincipal();
+        if (user instanceof Professor) {
+            listaT = tRepository.findByContaOrigem(((Professor) user).getConta());
+            isAluno = false;
+        } else {
+            listaT = tRepository.findByContaDestino(((Aluno) user).getConta());
+            isAluno = true;
+        }
     }
 
 }

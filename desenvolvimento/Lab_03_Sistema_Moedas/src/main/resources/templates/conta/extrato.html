@@ -11,27 +11,42 @@
 <body>
     <header th:replace="~{fragments::header}"></header>
     <section class="container">
-        <div class="row">
-            <table class="table col-12">
-            	<thead>
-            		<tr>
-             			<td scope="col">Tipo</td>
-            			<td scope="col">Data</td>
-            			<td scope="col" th:text="${isAluno} ? 'Origem' : 'Destino'"></td>
-            			<td scope="col">Valor</td>
-            			<td scope="col">Descrição</td>
-            		</tr>
-            	</thead>
-                <tbody>
-                    <tr th:each="e : ${extrato}">
-                       <th scope="row" th:text="${isAluno} ? 'Recebimento' : 'Envio'"></th>
-                        <th th:text="${e.data.toString()}" scope="row"></th>
-                    	<td th:text="${isAluno} ? ${ur.findProfessorByConta(e.contaOrigem.id).get()} : ${ur.findAlunoByConta(e.contaDestino.id).get()}"></td>
-                    	<td th:text="${e.valor}"></td>
-                    	<td th:text="${e.descricao}"></td>
-                    </tr>
-                </tbody>
-            </table>
+        <div class="row justify-content-center">
+            <h1 class="col-12 text-center">Extrato</h1>
+            <div class="col-10">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <!-- <td scope="col">Tipo</td> -->
+                            <td scope="col">Data</td>
+                            <td scope="col">Origem/Destino</td>
+                            <td scope="col">Valor</td>
+                            <td scope="col">Descrição</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="e : ${extrato}">
+                            <!-- <th scope=" row" th:text="${e.contaDestino.id == conta.id} ? 'Crédito' : 'Débito'"> -->
+                            </th>
+                            <th th:text="${formatter.format(e.data)}" scope="row"></th>
+                            <td
+                                th:text="${e.contaDestino.id == conta.id} ? ${ur.findProfessorByConta(e.contaOrigem.id).get()} : ${ur.findAlunoByConta(e.contaDestino.id).get()}">
+                            </td>
+                            <td th:text="${e.valor}" th:classappend="${e.contaDestino.id == conta.id}?credito:debito">
+                            </td>
+                            <td th:text="${e.descricao}"></td>
+                        </tr>
+                        <tr>
+                            </th>
+                            <th th:text="${formatter.format(now)}" scope="row"></th>
+                            <td>Saldo Atual: </td>
+                            <td th:text="${conta.saldo}">
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </section>
 

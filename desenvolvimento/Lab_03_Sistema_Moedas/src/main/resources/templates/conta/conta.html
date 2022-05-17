@@ -10,12 +10,26 @@
 
 <body>
     <header th:replace="~{fragments::header}"></header>
-    <section class="container">
-        <div class="row justify-content-between">
-            <h1 class="col-12">Sua conta</h1>
-            <!--             <p th:text="${conta.saldo}" class="col-2">Saldo</p> -->
-            <a href="/conta/extrato" class="col-2 btn btn-dark">Extrato</a>
-            <a sec:authorize="hasRole('PROFESSOR')" href="/conta/transferir" class="col-2 btn btn-dark">Transferir</a>
+    <section class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <div class="row">
+                    <h1 class="col-12">Sua conta</h1>
+                </div>
+            </div>
+            <div class="col-4 card-saldo">
+                <div class="row justify-content-center py-4">
+                    <h3 class=" col-12 text-center">Seu saldo</h3>
+                    <h4 class="col-3 mt-4 text-center text-saldo">$ <span th:text="${conta.saldo}">moedas</span></h4>
+                </div>
+            </div>
+            <div class="col">
+                <div class="row justify-content-center">
+                    <a href="/conta/extrato" class="col-2 btn btn-dark">Extrato</a>
+                    <a sec:authorize="hasRole('PROFESSOR')" href="/conta/transferir"
+                        class="col-2 btn btn-dark">Transferir</a>
+                </div>
+            </div>
         </div>
     </section>
 

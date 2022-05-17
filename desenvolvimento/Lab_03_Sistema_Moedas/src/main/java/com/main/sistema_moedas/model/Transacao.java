@@ -23,7 +23,7 @@ public class Transacao {
 	private Conta contaOrigem;
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Conta contaDestino;
-	@Column(columnDefinition = "DATE")
+	@Column(columnDefinition = "DATETIME")
 	private LocalDateTime data;
 
 	public LocalDateTime getData() {
