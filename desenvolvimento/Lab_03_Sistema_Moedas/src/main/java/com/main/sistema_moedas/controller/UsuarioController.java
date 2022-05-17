@@ -2,6 +2,8 @@ package com.main.sistema_moedas.controller;
 
 import java.util.List;
 
+import com.main.sistema_moedas.model.usuario.Aluno;
+import com.main.sistema_moedas.model.usuario.Professor;
 import com.main.sistema_moedas.model.usuario.Usuario;
 import com.main.sistema_moedas.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +25,8 @@ public class UsuarioController {
 	private InstituicaoRepository iRepository;
 	@Autowired
 	private UsuarioRepository uRepository;
-	
+
+
 	@GetMapping("/new")
 	public ModelAndView newUsuario() {
 		ModelAndView mv = new ModelAndView("usuarios/new");

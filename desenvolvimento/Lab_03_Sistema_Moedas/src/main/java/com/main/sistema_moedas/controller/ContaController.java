@@ -5,7 +5,6 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.Banner;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -55,22 +54,9 @@ public class ContaController {
         List<Aluno> alunos = uRepository.findByInstituicao(p.getInstituicao());
         ModelAndView mv = new ModelAndView("conta/transferir");
         mv.addObject("alunos", alunos);
+        mv.addObject("conta", p.getConta());
         return mv;
     }
-
-    /*@GetMapping("/transferir/erro/0")
-    public ModelAndView transferirErro(){
-        ModelAndView mv = transferirTela();
-        mv.addObject("erro", 0);
-        return mv;
-    }
-
-    @GetMapping("/transferir/erro/1")
-    public ModelAndView transferirErroSaldo(){
-        ModelAndView mv = transferirTela();
-        mv.addObject("erro", 1);
-        return mv;
-    }*/
 
     @PostMapping("/transferencia")
     public ModelAndView transferencia(Long alunoId, int qtdMoedas, String descricao) {
@@ -91,12 +77,12 @@ public class ContaController {
         transacao.setValor(qtdMoedas);
         transacao.setData(LocalDateTime.now());
 
-            tRepository.save(transacao);
-            cRepository.save(contaA);
-            cRepository.save(contaP);
-            mv.addObject("aluno", uRepository.findAlunoByConta(contaA).get());
-            mv.addObject("qtd", qtdMoedas);
-        }
+        tRepository.save(transacao);
+        cRepository.save(contaA);
+        cRepository.save(contaP);
+        mv.addObject("aluno", uRepository.findAlunoByConta(contaA).get());
+        mv.addObject("qtd", qtdMoedas);
+
         return mv;
     }
 
