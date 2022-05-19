@@ -17,6 +17,7 @@ import com.main.sistema_moedas.repository.InstituicaoRepository;
 import com.main.sistema_moedas.repository.RoleRepository;
 import com.main.sistema_moedas.repository.UsuarioRepository;
 
+@SuppressWarnings("unused")
 @Configuration
 public class AddEntity {
 

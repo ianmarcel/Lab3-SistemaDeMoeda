@@ -1,7 +1,5 @@
 package com.main.sistema_moedas.model;
 
-import com.main.sistema_moedas.model.usuario.Usuario;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
