@@ -26,7 +26,7 @@ import com.main.sistema_moedas.repository.VantagemRepository;
 @RequestMapping("/vantagem")
 public class VantagemController {
 
-	private static final String PATH_IMAGENS = "src\\main\\resources\\static\\";
+	private static final String PATH_IMAGENS = "src\\main\\resources\\static";
 
 	@Autowired
 	private VantagemRepository vRepository;
@@ -68,7 +68,7 @@ public class VantagemController {
 		try {
 			if (!foto.isEmpty()) {
 				byte[] bytes = foto.getBytes();
-				String path = "images/" +e.getId() + "/" + v.getId()+ "/";
+				String path = "/images/" +e.getId() + "/" + v.getId()+ "/";
 				String fileName = foto.getOriginalFilename();
 				
 				Path p = Paths.get(PATH_IMAGENS + path);
