@@ -17,14 +17,22 @@ public class Vantagem {
 	private String produto;
 	private int valor;
 	private String descricao;
+	private String foto;
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Empresa empresa;
 	
-	public Vantagem(String produto,int valor,String descricao) {
+	public Vantagem(String produto,int valor,String descricao, String foto) {
 		this.setProduto(produto);
 		this.setValor(valor);
 		this.setDescricao(descricao);
+		this.setFoto(foto);
 		
+	}
+	public String getFoto() {
+		return this.foto;
+	}
+	public void setFoto(String foto) {
+		this.foto = foto;
 	}
 	public long getId() {
 		return id;
