@@ -44,10 +44,12 @@ public class VantagemController {
 		return mv;
 	}
 
-	@GetMapping("/")
+	@GetMapping("/listar")
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("vantagem/listar");
-		mv.addObject("vantagens", vRepository.findAll());
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Empresa e = (Empresa) auth.getPrincipal();
+		mv.addObject("vantagens", vRepository.findByEmpresa(e));
 		return mv;
 	}
 
@@ -57,11 +59,20 @@ public class VantagemController {
 	}
 
 	@PostMapping("/new")
-	public String nova(String produto, int valor, String descricao, @RequestParam("foto") MultipartFile foto) {
+	public ModelAndView nova(String produto, int valor, String descricao, @RequestParam("foto") MultipartFile foto) {
+		ModelAndView mv = new ModelAndView("vantagem/new");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Empresa e = (Empresa) auth.getPrincipal();
-		if (valor < 0)
-			return "";
+
+		if (produto == null)
+			return  mv.addObject("erro", 1);
+		if (valor < 1)
+			return mv.addObject("erro", 2);
+		if (descricao == null)
+			return mv.addObject("erro", 3);
+
+		mv.setViewName("vantagem/minhasVantagens");
+
 		Vantagem v = new Vantagem(produto, valor, descricao, e);
 
 		v = vRepository.saveAndFlush(v);
@@ -83,12 +94,12 @@ public class VantagemController {
 			ex.printStackTrace();
 		}
 
-		return "redirect:/vantagem/";
+		return mv;
 	}
 	
 	@GetMapping("/editar")
 	public String formularioEditar() {
-		return "vantagem/Editar";
+		return "vantagem/editar";
 	}
 
 	@PostMapping("/editar/{id}")

@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import com.main.sistema_moedas.model.usuario.Empresa;
 
 @Entity
-public class Vantagem {
+public class 	Vantagem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;

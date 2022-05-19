@@ -3,9 +3,9 @@
     xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head th:replace="~{fragments::head}">
-    <title id="titlePage">Aluno</title>
+    <title id="titlePage">Transferir Moedas</title>
     <script id="personalScript">
-    </script>
+	</script>
 </head>
 
 <body>
@@ -19,7 +19,7 @@
 	</div>
     <section class="container">
         <form action="/conta/transferencia" method="post" class="form my-5 mx-auto">
-        <h1 class="col-12 text-center mt-5 px-2">Novo Usuario</h1>
+        <h1 class="col-12 text-center mt-5 px-2">Transferir Moedas</h1>
             <div class="row justify-content-center">
             	<div class="form-floating col-5 mt-3">
                 	<input type="number" name="qtdMoedas" id="qtdMoedas" min="1" class="form-control" placeholder="label">

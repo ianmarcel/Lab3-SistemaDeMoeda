@@ -10,25 +10,30 @@
 
 <body>
     <header th:replace="~{fragments::header}"></header>
-    <section class="container mt-5">
-        <div class="row">
-            <div class="col-12">
-                <div class="row">
-                    <h1 class="col-12">Sua conta</h1>
+    <section class="container form my-5 mx-auto">
+        <div class="row justify-content-between">
+            <h1 class="col-12 text-center mt-5 px-2" th:text="'Bem-vindo, ' + ${user.getNome()}">Home</h1>
+            <div class="row justify-content-center">
+                <div class="col-4 card-saldo">
+                    <div class="row justify-content-center py-4">
+                        <div class="row">
+                            <h3 class="col-12 text-center">Seu saldo:</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-12 mt-4 text-center text-saldo">
+                                <span th:text="${conta.saldo}">Saldo</span>
+                                <i class="fa-solid fa-coins"></i>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="col-4 card-saldo">
-                <div class="row justify-content-center py-4">
-                    <h3 class=" col-12 text-center">Seu saldo</h3>
-                    <h4 class="col-3 mt-4 text-center text-saldo">$ <span th:text="${conta.saldo}">moedas</span></h4>
-                </div>
-            </div>
-            <div class="col">
-                <div class="row justify-content-center">
-                    <a href="/conta/extrato" class="col-2 btn btn-dark">Extrato</a>
-                    <a sec:authorize="hasRole('PROFESSOR')" href="/conta/transferir"
-                        class="col-2 btn btn-dark">Transferir</a>
-                </div>
+            <div class="row" style="margin-top: 50px;">
+                <div class="col-1"></div>
+                <a href="/conta/extrato" class="col-2 btn btn-dark">Extrato</a>
+                <div class="col"></div>
+                <a sec:authorize="hasRole('PROFESSOR')" href="/conta/transferir" class="col-2 btn btn-dark">Transferir</a>
+                <div class="col-1"></div>
             </div>
         </div>
     </section>

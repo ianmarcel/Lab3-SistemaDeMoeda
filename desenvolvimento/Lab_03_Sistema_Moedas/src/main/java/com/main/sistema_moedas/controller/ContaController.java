@@ -42,8 +42,9 @@ public class ContaController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         ModelAndView mv = new ModelAndView("conta/conta");
         validate(auth);
-        mv.addObject("isAluno", isAluno);
-        mv.addObject("conta", isAluno ? ((Aluno) user).getConta() : ((Professor) user).getConta());
+        mv.addObject("isAluno", isAluno)
+                .addObject("conta", isAluno ? ((Aluno) user).getConta() : ((Professor) user).getConta())
+                .addObject("user", user);
         return mv;
     }
 
@@ -61,28 +62,29 @@ public class ContaController {
     @PostMapping("/transferencia")
     public ModelAndView transferencia(Long alunoId, int qtdMoedas, String descricao) {
         ModelAndView mv = transferirTela();
+        if (qtdMoedas < 1 || alunoId==null || descricao==null)
+            return mv.addObject("erro", 0);
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Professor p = (Professor) auth.getPrincipal();
         Conta contaP = p.getConta();
         Conta contaA = ((Aluno) uRepository.findById(alunoId).get()).getConta();
-        if (qtdMoedas < 0)
-            return "";
         if (!contaP.retirar(qtdMoedas))
-            return "";
-        contaA.adicionar(qtdMoedas);
-        Transacao transacao = new Transacao();
-        transacao.setContaDestino(contaA);
-        transacao.setContaOrigem(contaP);
-        transacao.setDescricao(descricao);
-        transacao.setValor(qtdMoedas);
-        transacao.setData(LocalDateTime.now());
+            mv.addObject("erro", 1);
+        else {
+            contaA.adicionar(qtdMoedas);
+            Transacao transacao = new Transacao();
+            transacao.setContaDestino(contaA);
+            transacao.setContaOrigem(contaP);
+            transacao.setDescricao(descricao);
+            transacao.setValor(qtdMoedas);
+            transacao.setData(LocalDateTime.now());
 
-        tRepository.save(transacao);
-        cRepository.save(contaA);
-        cRepository.save(contaP);
-        mv.addObject("aluno", uRepository.findAlunoByConta(contaA).get());
-        mv.addObject("qtd", qtdMoedas);
-
+            tRepository.save(transacao);
+            cRepository.save(contaA);
+            cRepository.save(contaP);
+            mv.addObject("aluno", uRepository.findAlunoByConta(contaA).get())
+                    .addObject("qtd", qtdMoedas);
+        }
         return mv;
     }
 
