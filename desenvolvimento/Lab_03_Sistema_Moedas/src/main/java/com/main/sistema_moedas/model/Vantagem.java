@@ -21,11 +21,15 @@ public class Vantagem {
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Empresa empresa;
 	
-	public Vantagem(String produto,int valor,String descricao, String foto) {
+	
+	
+	public Vantagem() {
+	}
+	public Vantagem(String produto,int valor,String descricao,Empresa empresa) {
 		this.setProduto(produto);
 		this.setValor(valor);
 		this.setDescricao(descricao);
-		this.setFoto(foto);
+		this.setEmpresa(empresa);
 		
 	}
 	public String getFoto() {
