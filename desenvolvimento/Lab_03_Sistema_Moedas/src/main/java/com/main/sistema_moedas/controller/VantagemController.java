@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.sistema_moedas.model.Vantagem;
+import com.main.sistema_moedas.model.usuario.Aluno;
 import com.main.sistema_moedas.model.usuario.Empresa;
 import com.main.sistema_moedas.repository.VantagemRepository;
 
@@ -53,12 +54,10 @@ public class VantagemController {
 		Usuario e = (Usuario) auth.getPrincipal();
 		if(e instanceof Empresa) {
 			mv.addObject("vantagens", vRepository.findByEmpresa(((Empresa) e)));
-			mv.addObject("isEmpresa", true);
 		}
 		else{
 			mv.addObject("vantagens", vRepository.findAll());
 			mv.addObject("conta", ((Aluno) e).getConta());
-			mv.addObject("isEmpresa", false);
 		}
 		return mv;
 	}
