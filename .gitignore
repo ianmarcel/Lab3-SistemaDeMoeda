@@ -1,3 +1,5 @@
 # Arquivos do Astha
 *.lock
 *.bak
+.project
+*/images/*
