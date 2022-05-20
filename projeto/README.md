@@ -14,6 +14,9 @@
 * US08: Como Empresa gostaria de fazer cadastro para usar o sistema.
 * US09: Como Empresa gostaria de cadastrar as vantagens para os alunos usarem.
 * US10 :Como usário gostaria de fazer login para usar o sistema
+* US11: Como usuário eu gostaria de fazer login para acessar o sistema
+* US12: Como usuário eu gostaria de editar meus dados para manter atualizado
+* US13: Como usuário eu gostaria de excluir minha conta
 
 # Diagrama de classe
 
@@ -29,11 +32,11 @@ Legenda:
 
 **_Endereco_**(@id, rua, bairro, numero, cep, **idUsuario**)
 
-**_Usuario_**(@id, nome, email, senha, cpf, rg, cnpj, departamento, tipo, **idInstituicao**)
+**_Usuario_**(@id, nome, email, senha, cpf, rg, cnpj, departamento, tipo, **idInstituicao**, **idConta**)
 
 **_Transacao_**(@id, valor, descricao, **idContaOrigem**, **idContaDestino**)
 
-**_Conta_**(@id, saldo, **idUsuario**)
+**_Conta_**(@id, saldo)
 
 **_Vantagem_**(@id, produto, valor, descricao, **idEmpresa**)
 
@@ -96,3 +99,11 @@ Legenda:
 ## Atualizar Dados UC08
 
 ![](Atualizar%20dados%20UC08.png)
+
+## Enviar Moedas
+
+![](EnviarMoedas%20UC07.png)
+
+## Cadastrar Vantagem
+
+![](Cadastrar%20Vantagem.png)
