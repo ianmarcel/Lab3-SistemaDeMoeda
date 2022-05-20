@@ -178,8 +178,8 @@
 			<div sec:authorize="hasRole('EMPRESA')" onclick="location.href='/empresa';" class="col-1 header-button"><a class="col-1" href="/empresa">Home</a></div>
 			<div sec:authorize="hasRole('ALUNO')" onclick="location.href='/aluno';" class="col-1 header-button"><a class="col-1" href="/aluno">Home</a></div>
 			<div sec:authorize="hasRole('PROFESSOR')" onclick="location.href='/professor';" class="col-1 header-button"><a class="col-1" href="/professor">Home</a></div>
-			<div sec:authorize="hasRole('EMPRESA')" onclick="location.href='/vantagem/minhasVantagens';" class="col-auto header-button"><a class="col-auto" href="/vantagem/minhasVantagens">Minhas Vantagens</a></div>
-			<div sec:authorize="hasRole('ALUNO')" onclick="location.href='/vantagem/listar';" class="col-auto header-button"><a class="col-auto" href="/vantagem/listar">Vantagens</a></div>
+			<div sec:authorize="hasRole('EMPRESA')" onclick="location.href='/vantagem/listar';" class="col-2 header-button"><a class="col-2" href="/vantagem/listar">Minhas Vantagens</a></div>
+			<div sec:authorize="hasRole('ALUNO')" onclick="location.href='/vantagem/listar';" class="col-1 header-button"><a class="col-1" href="/vantagem/listar">Vantagens</a></div>
 			<div class="col"></div>
 			<div sec:authorize="hasAnyRole('PROFESSOR', 'ALUNO')" class="col-1 coins"><div><span th:text="${conta.getSaldo()}" style="margin-right: 5px;"></span><i class="fa-solid fa-coins"></i></div></div>
 			<div sec:authorize="isAuthenticated()" onclick="location.href='/logout';" class="col-1 header-button"><a class="col-1" href="/logout">Sair</a></div>
