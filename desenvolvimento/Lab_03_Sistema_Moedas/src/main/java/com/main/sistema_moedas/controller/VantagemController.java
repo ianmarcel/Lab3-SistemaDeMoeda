@@ -6,6 +6,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
+import com.main.sistema_moedas.model.usuario.Aluno;
+import com.main.sistema_moedas.model.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -48,8 +50,16 @@ public class VantagemController {
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("vantagem/listar");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Empresa e = (Empresa) auth.getPrincipal();
-		mv.addObject("vantagens", vRepository.findByEmpresa(e));
+		Usuario e = (Usuario) auth.getPrincipal();
+		if(e instanceof Empresa) {
+			mv.addObject("vantagens", vRepository.findByEmpresa(((Empresa) e)));
+			mv.addObject("isEmpresa", true);
+		}
+		else{
+			mv.addObject("vantagens", vRepository.findAll());
+			mv.addObject("conta", ((Aluno) e).getConta());
+			mv.addObject("isEmpresa", false);
+		}
 		return mv;
 	}
 
@@ -58,20 +68,23 @@ public class VantagemController {
 		return "vantagem/new";
 	}
 
-	@PostMapping("/new")
-	public ModelAndView nova(String produto, int valor, String descricao, @RequestParam("foto") MultipartFile foto) {
+	@GetMapping("/new/{erro}")
+	public ModelAndView novaErro(@PathVariable int erro) {
 		ModelAndView mv = new ModelAndView("vantagem/new");
+		return mv.addObject("erro", erro);
+	}
+
+	@PostMapping("/new")
+	public String nova(String produto, int valor, String descricao, @RequestParam("foto") MultipartFile foto) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Empresa e = (Empresa) auth.getPrincipal();
 
-		if (produto == null)
-			return  mv.addObject("erro", 1);
-		if (valor < 1)
-			return mv.addObject("erro", 2);
-		if (descricao == null)
-			return mv.addObject("erro", 3);
+		int valido = valida(produto, valor, descricao);
+		System.out.println(produto.equals(""));
+		if(valido!=-1){
+			return "redirect:/vantagem/new/"+valido;
+		}
 
-		mv.setViewName("vantagem/minhasVantagens");
 
 		Vantagem v = new Vantagem(produto, valor, descricao, e);
 
@@ -94,19 +107,29 @@ public class VantagemController {
 			ex.printStackTrace();
 		}
 
-		return mv;
+		return "redirect:/vantagem/listar";
 	}
 	
-	@GetMapping("/editar")
-	public String formularioEditar() {
-		return "vantagem/editar";
+	@GetMapping("/editar/{id}")
+	public ModelAndView formularioEditar(@PathVariable long id) {
+		ModelAndView mv = new ModelAndView("vantagem/editar");
+		mv.addObject("v", vRepository.findById(id).get());
+		return mv;
+	}
+
+	@GetMapping("/editar/{id}/{erro}")
+	public ModelAndView editarErro(@PathVariable long id, @PathVariable int erro){
+		ModelAndView mv = formularioEditar(id);
+		return mv.addObject("erro", erro);
 	}
 
 	@PostMapping("/editar/{id}")
 	public String editar(String produto, int valor, String descricao, @PathVariable long id) {
 		Vantagem v = vRepository.findById(id).get();
-		if (valor < 0)
-			return "";
+		int valido = valida(produto, valor, descricao);
+		if(valido!=-1){
+			return "redirect:/vantagem/editar/"+id+"/"+valido;
+		}
 		
 		v.setDescricao(descricao);
 		v.setProduto(produto);
@@ -114,6 +137,22 @@ public class VantagemController {
 		
 		vRepository.save(v);
 
-		return "redirect:/vantagem/";
+		return "redirect:/vantagem/listar";
+	}
+
+	@GetMapping("/deletar/{id}")
+	public String deletaVantagem(@PathVariable long id){
+		vRepository.delete(vRepository.findById(id).get());
+		return "redirect:/vantagem/listar";
+	}
+
+	private int valida(String produto, int valor, String descricao){
+		if (produto == null || produto.equals(""))
+			return 1;
+		if (valor < 1)
+			return 2;
+		if (descricao == null || descricao.equals(""))
+			return 3;
+		return -1;
 	}
 }

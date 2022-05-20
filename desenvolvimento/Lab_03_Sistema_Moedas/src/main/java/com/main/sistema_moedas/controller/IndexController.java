@@ -31,8 +31,8 @@ public class IndexController {
         return mv;
     }
 
-    @GetMapping("/teste")
+    /*@GetMapping("/teste")
     public ModelAndView teste(){
         return new ModelAndView("empresa/listarVantagens");
-    }
+    }*/
 }

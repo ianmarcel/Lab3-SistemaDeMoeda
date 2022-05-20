@@ -60,7 +60,7 @@ public class AlunoController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Aluno aluno = (Aluno) auth.getPrincipal();
 		ModelAndView mv = new ModelAndView("aluno/aluno");
-		mv.addObject("aluno", aluno);
+		mv.addObject("user", aluno);
 		mv.addObject("conta", aluno.getConta());
 		return mv;
 	}

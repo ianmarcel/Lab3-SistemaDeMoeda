@@ -33,40 +33,27 @@
 
     <!-- Conteúdo -->
     <section class="container">
-        <form action="/vantagem/new" method="post" enctype="multipart/form-data" class="form my-5 mx-auto">
-        <h1 class="col-12 text-center mt-5 px-2">Cadastrar Vantagem</h1>
+        <form th:action="${'/vantagem/editar/' + v.id}" method="post" class="form my-5 mx-auto">
+        <h1 class="col-12 text-center mt-5 px-2">Editar Vantagem</h1>
             <div class="row justify-content-center">
                 <div class="form-floating col-5 mt-3">
-        	        <input type="text" name="produto" id="produto" class="form-control" placeholder="label" value="">
+        	        <input type="text" name="produto" id="produto" class="form-control" placeholder="label" th:value="${v.produto}">
             	    <label for="produto" class="form-label">Nome da vantagem</label>
 	            </div>
             	<div class="form-floating col-5 mt-3">
-                	<input onchange="validaPreco()" type="number" name="valor" id="valor" min="1" class="form-control" placeholder="label" value="0">
+                	<input onchange="validaPreco()" type="number" name="valor" id="valor" min="1" class="form-control" placeholder="label" th:value="${v.valor}">
                 	<label for="valor" class="form-label">Preço</label>
 	            </div>
             </div>
             <div class="row justify-content-center">
                 <div class="form-floating col-10 mt-3">
-                    <input type="text" name="descricao" id="descricao" class="form-control" placeholder="label" value="">
+                    <input type="text" name="descricao" id="descricao" class="form-control" placeholder="label" th:value="${v.descricao}">
                     <label for="descricao" class="form-label">Descrição</label>
             	</div>
             </div>
             <div class="row justify-content-center">
-                <div class="form-floating col-10 mt-3 justify-content-left">
-                    <span>Selecione uma imagem para a sua vantagem:</span>                 
-            	</div>
+                <button type="submit" class="col-5 my-3 btn btn-dark h-100">Salvar</button>
             </div>
-            <div class="row justify-content-center">
-                <div class="form-floating col-10 mt-3 justify-content-left">
-                    <input type="file" name="foto" id="foto" class="form-control form-control-sm">                   
-            	</div>
-            </div>
-     	       
-            
-            <div class="row justify-content-center">
-                <button type="submit" class="col-5 my-3 btn btn-dark h-100">Cadastrar</button>
-            </div>
-            
         </form>
     </section>
 

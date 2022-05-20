@@ -24,7 +24,7 @@ public class ProfessorController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         Professor professor = (Professor) auth.getPrincipal();
         ModelAndView mv = new ModelAndView("professor/professor");
-        mv.addObject("professor", professor);
+        mv.addObject("user", professor);
         mv.addObject("conta", professor.getConta());
         return mv;
     }
