@@ -17,7 +17,7 @@
             <div class="col-3"></div>
             <h1 class="col-5 text-center">Vantagens</h1>
             <div class="col"></div>
-            <a href="/vantagem/new" class="col-3 btn btn-dark" style="max-height: 40px;">Cadastrar Vantagem</a>
+            <a sec:authorize="hasRole('EMPRESA')" href="/vantagem/new" class="col-3 btn btn-dark" style="max-height: 40px;">Cadastrar Vantagem</a>
             <div class="col"></div>
         </div>
         
@@ -61,7 +61,7 @@
                 </div>
                 <hr style="margin: 0;">
                 <div class="row" style="height: 10px;"></div>
-                <div class="row">
+                <div sec:authorize="hasRole('EMPRESA')" class="row">
                     <div class="col"></div>
                     <a href="/empresa/addvantagem" class="col-3 btn btn-dark">Editar</a>
                     <div class="col"></div>

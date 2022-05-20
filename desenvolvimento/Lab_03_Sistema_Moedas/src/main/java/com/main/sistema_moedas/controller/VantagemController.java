@@ -19,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.main.sistema_moedas.model.Vantagem;
+import com.main.sistema_moedas.model.usuario.Aluno;
 import com.main.sistema_moedas.model.usuario.Empresa;
 import com.main.sistema_moedas.repository.VantagemRepository;
 
@@ -48,6 +49,17 @@ public class VantagemController {
 	public ModelAndView listar() {
 		ModelAndView mv = new ModelAndView("vantagem/listar");
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		Aluno a = (Aluno) auth.getPrincipal();
+		mv.addObject("conta", a.getConta());
+		mv.addObject("vantagens", vRepository.findAll());
+		return mv;
+	}
+	
+	
+	@GetMapping("/minhasVantagens")
+	public ModelAndView minhasVantagens() {
+		ModelAndView mv = new ModelAndView("vantagem/listar");
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Empresa e = (Empresa) auth.getPrincipal();
 		mv.addObject("vantagens", vRepository.findByEmpresa(e));
 		return mv;
@@ -71,7 +83,7 @@ public class VantagemController {
 		if (descricao == null)
 			return mv.addObject("erro", 3);
 
-		mv.setViewName("vantagem/minhasVantagens");
+		mv.setViewName("redirect:/vantagem/minhasVantagens");
 
 		Vantagem v = new Vantagem(produto, valor, descricao, e);
 
