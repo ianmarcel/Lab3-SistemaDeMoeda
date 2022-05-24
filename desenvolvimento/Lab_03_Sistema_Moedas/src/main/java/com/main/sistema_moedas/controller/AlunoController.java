@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,6 +37,7 @@ public class AlunoController {
 	private InstituicaoRepository iRepository;
 
 	private BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+	
 
 	@PostMapping("/new")
 	public String novo(Aluno a, Endereco e, Long idInstituicao) {
@@ -59,7 +60,7 @@ public class AlunoController {
 	public ModelAndView homeAluno() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Aluno aluno = (Aluno) auth.getPrincipal();
-		ModelAndView mv = new ModelAndView("aluno/aluno");
+		ModelAndView mv = new ModelAndView("usuarios/usuario");
 		mv.addObject("user", aluno);
 		mv.addObject("conta", aluno.getConta());
 		return mv;
@@ -69,28 +70,40 @@ public class AlunoController {
 	public ModelAndView editaAluno() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Usuario user = (Usuario) auth.getPrincipal();
-		ModelAndView mv = new ModelAndView("aluno/editar");
-		mv.addObject("aluno", ((Aluno) user));
+		ModelAndView mv = new ModelAndView("usuarios/editar");
+		mv.addObject("user", ((Aluno) user));
 		mv.addObject("end", user.getEndereco());
 		mv.addObject("conta", ((Aluno) user).getConta());
+		mv.addObject("tipo", "Aluno");
 		return mv;
 	}
 
 	@PostMapping("/editar")
-	public String updateAluno(@Validated Aluno aluno, Endereco end, BindingResult result) {
+	public String updateAluno(Aluno aluno, Endereco end, String senhaAtual) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Aluno user = ((Aluno) auth.getPrincipal());
-		Long id = user.getId();
-		String senha = user.getSenha();
-		List<Role> roles = user.getRoles();
-		if (result.hasErrors()) {
-			return "aluno/editar";
+		if (!encoder.matches(senhaAtual, user.getSenha()) && !(user.getId() == aluno.getId()))
+			return "redirect:/aluno";
+		
+		if (aluno.getSenha().equals("")) {
+			aluno.setSenha(user.getSenha());
+		}else {
+			aluno.setSenha(encoder.encode(aluno.getSenha()));
 		}
-		aluno.setId(id);
-		aluno.setSenha(senha);
+		
 		aluno.setEndereco(end);
-		aluno.setRoles(roles);
+		aluno.setRoles(user.getRoles());
+		aluno.setInstituicao(user.getInstituicao());
+		aluno.setConta(user.getConta());
+		
+		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(user.getAuthorities());
+		Authentication newAuth = new UsernamePasswordAuthenticationToken(aluno, user.getAuthorities(),updatedAuthorities);
+		 
+		
+		SecurityContextHolder.getContext().setAuthentication(newAuth);
+		
 		uRepository.save(aluno);
-		return "redirect:/login";
+		
+		return "redirect:/aluno";
 	}
 }

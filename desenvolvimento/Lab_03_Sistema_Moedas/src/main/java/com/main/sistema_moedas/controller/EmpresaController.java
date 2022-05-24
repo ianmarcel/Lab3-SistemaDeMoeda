@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.main.sistema_moedas.model.Endereco;
 import com.main.sistema_moedas.model.usuario.Empresa;
+import com.main.sistema_moedas.model.usuario.Professor;
 import com.main.sistema_moedas.model.usuario.Role;
 import com.main.sistema_moedas.model.usuario.Usuario;
 import com.main.sistema_moedas.repository.RoleRepository;
@@ -52,37 +55,46 @@ public class EmpresaController {
 	public ModelAndView homeEmpresa() {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		Empresa empresa = (Empresa) auth.getPrincipal();
-		ModelAndView mv = new ModelAndView("empresa/empresa");
-		mv.addObject("empresa", empresa);
+		ModelAndView mv = new ModelAndView("usuarios/usuario");
+		mv.addObject("user", empresa);
 		return mv;
 	}
 
-	@GetMapping("/editar")
-	public ModelAndView editaEmpresa() {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Usuario user = (Usuario) auth.getPrincipal();
-		ModelAndView mv = new ModelAndView("empresa/editar");
-		mv.addObject("empresa", ((Empresa) user));
-		mv.addObject("end", user.getEndereco());
-		return mv;
-	}
-
-	@PostMapping("/editar")
-	public String updateEmpresa(@Validated Empresa empresa, Endereco end, BindingResult result) {
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		Empresa user = ((Empresa) auth.getPrincipal());
-		Long id = user.getId();
-		String senha = user.getSenha();
-		List<Role> roles = user.getRoles();
-		if (result.hasErrors()) {
-			return "empresa/editar";
+	 @GetMapping("/editar")
+		public ModelAndView editaProfessor() {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Usuario user = (Usuario) auth.getPrincipal();
+			ModelAndView mv = new ModelAndView("usuarios/editar");
+			mv.addObject("user", ((Empresa) user));
+			mv.addObject("end", user.getEndereco());
+			mv.addObject("tipo", "Empresa");
+			return mv;
 		}
-		empresa.setId(id);
-		empresa.setSenha(senha);
-		empresa.setEndereco(end);
-		empresa.setRoles(roles);
-		uRepository.save(empresa);
-		return "redirect:/login";
-	}
 
+		@PostMapping("/editar")
+		public String updateProfessor(Empresa empresa, Endereco end, String senhaAtual) {
+			Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+			Empresa user = ((Empresa) auth.getPrincipal());
+			if (!encoder.matches(senhaAtual, user.getSenha()) && !(user.getId() == empresa.getId()))
+				return "redirect:/empresa";
+			
+			if (empresa.getSenha().equals("")) {
+				empresa.setSenha(user.getSenha());
+			}else {
+				empresa.setSenha(encoder.encode(empresa.getSenha()));
+			}
+			
+			empresa.setEndereco(end);
+			empresa.setRoles(user.getRoles());
+			
+			List<GrantedAuthority> updatedAuthorities = new ArrayList<>(user.getAuthorities());
+			Authentication newAuth = new UsernamePasswordAuthenticationToken(empresa, user.getAuthorities(),updatedAuthorities);
+			 
+			
+			SecurityContextHolder.getContext().setAuthentication(newAuth);
+			
+			uRepository.save(empresa);
+			
+			return "redirect:/empresa";
+		}
 }

@@ -10,7 +10,7 @@
 
 <body>
     <header th:replace="~{fragments::header}"></header>
-	<div th:if="${erro != null}" class="row message-error mt-5 mx-auto align-items-center" style="max-width: 900px;">
+	<div th:if="${erro}" class="row message-error mt-5 mx-auto align-items-center" style="max-width: 900px;">
 		<h4 th:if="${erro == 0}">ERRO: Verifique se os dados estão corretos.</h4>
 		<h4 th:if="${erro == 1}">ERRO: Saldo insuficiente.</h4>
 	</div>

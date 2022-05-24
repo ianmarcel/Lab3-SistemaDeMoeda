@@ -6,8 +6,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Optional;
 
-import com.main.sistema_moedas.model.usuario.Aluno;
-import com.main.sistema_moedas.model.usuario.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -23,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.main.sistema_moedas.model.Vantagem;
 import com.main.sistema_moedas.model.usuario.Aluno;
 import com.main.sistema_moedas.model.usuario.Empresa;
+import com.main.sistema_moedas.model.usuario.Usuario;
 import com.main.sistema_moedas.repository.VantagemRepository;
 
 @Controller

@@ -32,7 +32,7 @@
                             <td
                                 th:text="${e.contaDestino.id == conta.id} ? ${ur.findProfessorByConta(e.contaOrigem.id).get()} : ${ur.findAlunoByConta(e.contaDestino.id).get()}">
                             </td>
-                            <td th:text="${e.valor}" th:classappend="${e.contaDestino.id == conta.id}?credito:debito">
+                            <td th:text="${(e.contaDestino.id == conta.id?'+':'-')+e.valor}" th:classappend="${e.contaDestino.id == conta.id}?credito:debito">
                             </td>
                             <td th:text="${e.descricao}"></td>
                         </tr>
