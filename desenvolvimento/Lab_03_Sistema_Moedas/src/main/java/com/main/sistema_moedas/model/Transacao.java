@@ -18,7 +18,7 @@ public class Transacao {
 	private long id;
 
 	private int valor;
-	private String descricao;
+	private String descricao;	
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Conta contaOrigem;
 	@ManyToOne(cascade = CascadeType.REFRESH)
