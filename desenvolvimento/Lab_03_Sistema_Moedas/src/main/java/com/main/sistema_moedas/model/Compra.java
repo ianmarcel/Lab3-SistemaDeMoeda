@@ -14,24 +14,16 @@ public class Compra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
-	private int valortotal;
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	private Conta conta;
+	private int valor;
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Vantagem vantagem;
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Aluno aluno;
 
-	public int getValortotal() {
-		return valortotal;
-	}
-
-	public Aluno getAluno() {
-		return aluno;
-	}
-
-	public void setAluno(Aluno aluno) {
-		this.aluno = aluno;
+	public Compra(int valortotal, Aluno aluno, Vantagem vantagem) {
+		this.setValor(valortotal);
+		this.setAluno(aluno);
+		this.setVantagem(vantagem);
 	}
 
 	public Vantagem getVantagem() {
@@ -50,16 +42,15 @@ public class Compra {
 		this.id = id;
 	}
 
-	public Conta getConta() {
-		return conta;
-	}
-
-	public void setConta(Conta conta) {
-		this.conta = conta;
-	}
-
 	public void setValortotal(int valortotal) {
 		this.valortotal = valortotal;
 	}
 
+	public Aluno getAluno() {
+		return aluno;
+	}
+
+	public void setAluno(Aluno aluno) {
+		this.aluno = aluno;
+	}
 }

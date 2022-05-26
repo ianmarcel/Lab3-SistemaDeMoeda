@@ -12,5 +12,4 @@ public interface CompraRepository extends JpaRepository<Compra, Long> {
 	
 	List<Compra> findByAluno(Aluno a);
 
-    
 }
