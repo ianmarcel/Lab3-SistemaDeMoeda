@@ -147,3 +147,11 @@ header a i:hover {
 	margin-left: 8%;
 	font-size: large;
 }
+
+.image-preview {
+	min-height: 150px;
+	max-height: 200px;
+	border: #212529 1px solid;
+	padding: 5px;
+	overflow: hidden;
+}

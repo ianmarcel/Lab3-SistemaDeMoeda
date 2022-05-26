@@ -46,7 +46,6 @@ public class ProfessorController {
 		ModelAndView mv = new ModelAndView("usuarios/editar");
 		mv.addObject("user", ((Professor) user));
 		mv.addObject("end", user.getEndereco());
-		mv.addObject("conta", ((Professor) user).getConta());
 		mv.addObject("tipo", "Profesor");
 		return mv;
 	}
