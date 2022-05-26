@@ -7,5 +7,4 @@ import com.main.sistema_moedas.model.Compra;
 @Repository
 public interface CompraRepository extends JpaRepository<Compra, Long> {
 
-    
 }

@@ -70,6 +70,8 @@
                 </div>
                 <div class="row" sec:authorize="hasRole('ALUNO')">
                     <span th:text="'Empresa: ' + ${v.getEmpresa().getNome()}"></span>
+                    <div class="col"></div>
+                    <a th:href="${'/compra/new/' + v.id}" class="col-3 btn btn-dark">Comprar</a>
                 </div>
                 <div class="row" style="height: 10px;"></div>
             </div>
