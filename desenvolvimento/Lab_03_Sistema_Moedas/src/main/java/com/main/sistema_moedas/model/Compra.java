@@ -1,6 +1,9 @@
 package com.main.sistema_moedas.model;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,18 +16,15 @@ import com.main.sistema_moedas.model.usuario.Aluno;
 public class Compra {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private long id;
 	private int valor;
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Vantagem vantagem;
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	private Aluno aluno;
-
-	public Compra(int valortotal, Aluno aluno, Vantagem vantagem) {
-		this.setValor(valortotal);
-		this.setAluno(aluno);
-		this.setVantagem(vantagem);
-	}
+	@Column(columnDefinition = "DATETIME")
+	private LocalDateTime data;
+	
 
 	public Vantagem getVantagem() {
 		return vantagem;
@@ -34,16 +34,12 @@ public class Compra {
 		this.vantagem = vantagem;
 	}
 
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
-	}
-
-	public void setValortotal(int valortotal) {
-		this.valortotal = valortotal;
 	}
 
 	public Aluno getAluno() {
@@ -53,4 +49,33 @@ public class Compra {
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
 	}
+
+	public int getValor() {
+		return this.valor;
+	}
+
+	public void setValor(int valor) {
+		this.valor = valor;
+	}
+
+	
+	
+	public Compra(int valor, Aluno aluno, Vantagem vantagem, LocalDateTime data) {
+		this.valor = valor;
+		this.vantagem = vantagem;
+		this.aluno = aluno;
+		this.data = data;
+	}
+
+	public Compra() {
+	}
+
+	public LocalDateTime getData() {
+		return this.data;
+	}
+
+	public void setData(LocalDateTime data) {
+		this.data = data;
+	}
+	
 }

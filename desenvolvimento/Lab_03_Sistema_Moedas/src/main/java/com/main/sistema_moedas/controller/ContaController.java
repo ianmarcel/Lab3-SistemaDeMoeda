@@ -18,6 +18,7 @@ import com.main.sistema_moedas.model.Transacao;
 import com.main.sistema_moedas.model.usuario.Aluno;
 import com.main.sistema_moedas.model.usuario.Professor;
 import com.main.sistema_moedas.model.usuario.Usuario;
+import com.main.sistema_moedas.repository.CompraRepository;
 import com.main.sistema_moedas.repository.ContaRepository;
 import com.main.sistema_moedas.repository.TransacaoRepository;
 import com.main.sistema_moedas.repository.UsuarioRepository;
@@ -32,6 +33,8 @@ public class ContaController {
     private TransacaoRepository tRepository;
     @Autowired
     private ContaRepository cRepository;
+    @Autowired
+    private CompraRepository coRepository;
 
     private boolean isAluno;
     private List<Transacao> listaT;
@@ -100,6 +103,8 @@ public class ContaController {
         mv.addObject("formatter", formatter);
         mv.addObject("now", LocalDateTime.now());
         mv.addObject("conta", isAluno ? ((Aluno) user).getConta() : ((Professor) user).getConta());
+        if (isAluno)
+        	mv.addObject("compras", coRepository.findByAluno((Aluno) user));
         return mv;
     }
 

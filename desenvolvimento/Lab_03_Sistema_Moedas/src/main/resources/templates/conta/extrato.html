@@ -26,8 +26,6 @@
                     </thead>
                     <tbody>
                         <tr th:each="e : ${extrato}">
-                            <!-- <th scope=" row" th:text="${e.contaDestino.id == conta.id} ? 'Crédito' : 'Débito'"> -->
-                            </th>
                             <th th:text="${formatter.format(e.data)}" scope="row"></th>
                             <td
                                 th:text="${e.contaDestino.id == conta.id} ? ${ur.findProfessorByConta(e.contaOrigem.id).get()} : ${ur.findAlunoByConta(e.contaDestino.id).get()}">
@@ -36,8 +34,16 @@
                             </td>
                             <td th:text="${e.descricao}"></td>
                         </tr>
+                        <tr th:if="${compras}" th:each="c : ${compras}">
+                            <th th:text="${formatter.format(c.data)}" scope="row"></th>
+                            <td
+                                th:text="${c.vantagem.empresa.nome}">
+                            </td>
+                            <td th:text="'-' + ${c.valor}" th:classappend="debito">
+                            </td>
+                            <td th:text="${c.vantagem.produto}"></td>
+                        </tr>
                         <tr>
-                            </th>
                             <th th:text="${formatter.format(now)}" scope="row"></th>
                             <td>Saldo Atual: </td>
                             <td th:text="${conta.saldo}">
