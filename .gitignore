@@ -2,5 +2,5 @@
 *.lock
 *.bak
 .project
-*/images/*
-*/cupons/*
+/images
+/cupons
