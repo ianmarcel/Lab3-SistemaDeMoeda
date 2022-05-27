@@ -2,5 +2,7 @@
 *.lock
 *.bak
 .project
-/images
-/cupons
+
+**/src/main/resources/static/images/*
+**/src/main/resources/static/cupons/*
+
